@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorPrimary">
+
+    </View>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/default_user_profile"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"
+        android:layout_marginTop="45dp"
+        android:elevation="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/phone_number"
+        android:layout_marginEnd="19dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:layout_alignStart="@+id/profile_image"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/profile_image"
+        android:text="Mr. Xyz"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:id="@+id/username" />
+
+    <LinearLayout
+        android:id="@+id/quantityContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="50dp">
+
+        <TextView
+            android:id="@+id/quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:textAppearance="?android:textAppearanceMedium"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="Ltrs"
+            android:textAppearance="?android:textAppearanceMedium"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/address"
+        android:text="@string/Address"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quantityContainer"
+        android:layout_marginTop="8dp"
+        android:layout_alignStart="@+id/quantityContainer"
+        android:textAppearance="?android:textAppearanceMedium"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phone_number"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/address"
+        android:layout_alignStart="@+id/address"
+        android:text="8939155521"
+        android:textAppearance="?android:textAppearanceMedium"/>
+
+    <TextView
+        android:id="@+id/timingSlot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delivery Timing: Morning"
+        android:layout_below="@+id/phone_number"
+        android:layout_alignStart="@+id/phone_number"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/costTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rs"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_below="@+id/timingSlot"
+        android:layout_alignStart="@+id/timingSlot"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cost"
+        android:text="50"
+        android:layout_marginStart="5dp"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_alignBaseline="@+id/costTextView"
+        android:layout_toRightOf="@+id/costTextView"/>
+</RelativeLayout>
