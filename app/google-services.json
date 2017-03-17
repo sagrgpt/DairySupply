@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "968890505894",
+    "firebase_url": "https://dairysupply-21c78.firebaseio.com",
+    "project_id": "dairysupply-21c78",
+    "storage_bucket": "dairysupply-21c78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968890505894:android:880c636cd3fd05a5",
+        "android_client_info": {
+          "package_name": "com.example.sagar.dairysupply"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "968890505894-6tc1b8n4brt0toeq22o88fpjh0g23pt5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sagar.dairysupply",
+            "certificate_hash": "0c193224629d82d8fcf554a3ffe33b8aa2da5a26"
+          }
+        },
+        {
+          "client_id": "968890505894-959drh0pfjri4eqbh371vvip1bjlnjet.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIIx-9kNUmi80SVOJUyaKjBOUUv32gvpw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "968890505894-959drh0pfjri4eqbh371vvip1bjlnjet.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
