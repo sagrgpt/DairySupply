@@ -1,9 +1,17 @@
 package com.example.sagar.dairysupply;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.os.Bundle;;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -19,11 +27,33 @@ public class OrderActivity extends AppCompatActivity {
     ImageButton addQuantity, decreaseQuantity;
     RadioButton slot1, slot2;
     String qty, slot;
+    private Toolbar mToolbar;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private NavigationView leftNavDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
+
+        mToolbar = (Toolbar) findViewById(R.id.appbar);
+        setSupportActionBar(mToolbar);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mToggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
+        drawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        leftNavDrawer =(NavigationView) findViewById(R.id.leftNavDrawer);
+        leftNavDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                startActivity(new Navigation4navDrawer().navAction(item,OrderActivity.this));
+                return false;
+            }
+        });
+
 
         slot1 = (RadioButton) findViewById(R.id.slot1);
         slot2 = (RadioButton) findViewById(R.id.slot2);
@@ -96,4 +126,20 @@ public class OrderActivity extends AppCompatActivity {
     public void onBackPressed() {
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+//
+//        Toast.makeText(OrderActivity.this,item.getItemId(),Toast.LENGTH_SHORT).show();
+////        if(item.getItemId()==R.id.nav_account){
+////            Toast.makeText(OrderActivity.this,"My Account Activity",Toast.LENGTH_SHORT).show();
+////        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }

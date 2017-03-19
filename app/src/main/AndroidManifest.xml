@@ -19,11 +19,15 @@
         <activity
             android:name=".BrandActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
-            android:name=".OrderActivity"
-            android:theme="@style/AppThemeNoAppbar" />
+            android:name=".OrderActivity"/>
+
         <activity
             android:name=".OrderDetails"
             android:theme="@style/AppThemeNoAppbar">
@@ -33,12 +37,9 @@
 
         </activity>
         <activity android:name=".SignInActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

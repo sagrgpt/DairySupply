@@ -3,4 +3,21 @@
     <string name="appTagline">Product TagLines</string>
     <string name="title_activity_login">Sign in</string>
     <string name="Address">House No, Area Name, Landmark, City,</string>
+    <string-array name="navOptions">
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+        <item>item5</item>
+        <item>item6</item>
+        <item>Logout</item>
+    </string-array>
+    <string name="title_activity_blabla">blabla</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
