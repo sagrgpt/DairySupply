@@ -25,21 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".OrderActivity"/>
-
+        <activity android:name=".OrderActivity" />
         <activity
             android:name=".OrderDetails"
-            android:theme="@style/AppThemeNoAppbar">
-
-        </activity>
-        <activity android:name=".DeliveryInfo">
-
-        </activity>
-        <activity android:name=".SignInActivity">
-
-        </activity>
-
+            android:theme="@style/AppThemeNoAppbar"></activity>
+        <activity android:name=".DeliveryInfo"></activity>
+        <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".MyAccount"></activity>
     </application>
 
 </manifest>

@@ -11,8 +11,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class BrandActivity extends Activity {
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private static FirebaseAuth mAuth;
+    private static FirebaseAuth.AuthStateListener mAuthStateListener;
     private final int SPLASH_DISPLAY_LENGTH = 3000;
 
     @Override
@@ -26,6 +26,17 @@ public class BrandActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_brand);
+
+
+
+//
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Intent i = new Intent(BrandActivity.this, SignInActivity.class);
+//                startActivity(i);
+//            }
+//        }, SPLASH_DISPLAY_LENGTH);
 
         mAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -41,13 +52,7 @@ public class BrandActivity extends Activity {
 
 
 
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Intent i = new Intent(BrandActivity.this, SignInActivity.class);
-//                startActivity(i);
-//            }
-//        }, SPLASH_DISPLAY_LENGTH);
+
 
     }
 

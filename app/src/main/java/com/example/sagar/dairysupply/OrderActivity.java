@@ -9,8 +9,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -94,8 +92,8 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //checking if the user entry is valid before moving to the next activity.
-                Boolean isvalid = validate(v);
-                if(isvalid){
+                Boolean isValid = validate(v);
+                if(isValid){
                     Intent i = new Intent(OrderActivity.this,DeliveryInfo.class);
                     i.putExtra("Quantity",qty);
                     i.putExtra("Slot",slot);
@@ -132,12 +130,6 @@ public class OrderActivity extends AppCompatActivity {
         if (mToggle.onOptionsItemSelected(item)){
             return true;
         }
-//
-//        Toast.makeText(OrderActivity.this,item.getItemId(),Toast.LENGTH_SHORT).show();
-////        if(item.getItemId()==R.id.nav_account){
-////            Toast.makeText(OrderActivity.this,"My Account Activity",Toast.LENGTH_SHORT).show();
-////        }
-
         return super.onOptionsItemSelected(item);
     }
 

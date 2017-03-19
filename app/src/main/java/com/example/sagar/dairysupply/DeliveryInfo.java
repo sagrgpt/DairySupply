@@ -4,19 +4,26 @@ import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 public class DeliveryInfo extends AppCompatActivity {
 
     String ERROR="Cannot be left empty";
     String addr1, addr2, addr3, landmark;
-    static private TextInputLayout addr1TextInputLayout, addr2TextInputLayout, addr3TextInputLayout,landMarkTextInputLayout;
+    private static TextInputLayout addr1TextInputLayout, addr2TextInputLayout, addr3TextInputLayout,landMarkTextInputLayout;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Your Location!!");
         setContentView(R.layout.activity_delivery_info);
+
+
+        mToolbar = (Toolbar) findViewById(R.id.appbar);
+        setSupportActionBar(mToolbar);
+        setTitle("Location");
+
         addr1TextInputLayout = (TextInputLayout) findViewById(R.id.addr1TextInputLayout);
         addr2TextInputLayout = (TextInputLayout) findViewById(R.id.addr2TextInputLayout);
         addr3TextInputLayout = (TextInputLayout) findViewById(R.id.addr3TextInputLayout);

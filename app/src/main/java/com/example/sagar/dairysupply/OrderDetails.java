@@ -1,7 +1,9 @@
 package com.example.sagar.dairysupply;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 public class OrderDetails extends AppCompatActivity {
 
@@ -9,12 +11,15 @@ public class OrderDetails extends AppCompatActivity {
     double price=20.00;
     double totalCost;
     TextView quantity, address, contact, slot, cost;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("");
         setContentView(R.layout.activity_order_details);
+        mToolbar =(Toolbar) findViewById(R.id.appbar);
+        setSupportActionBar(mToolbar);
+        setTitle("Your Order!");
 
         quantity = (TextView) findViewById(R.id.quantity);
         address = (TextView) findViewById(R.id.address);
@@ -29,5 +34,10 @@ public class OrderDetails extends AppCompatActivity {
         totalCost = qty*price;
         cost.setText(String.valueOf(totalCost));
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(OrderDetails.this,OrderActivity.class));
     }
 }
