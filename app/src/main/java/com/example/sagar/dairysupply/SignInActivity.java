@@ -1,11 +1,15 @@
 package com.example.sagar.dairysupply;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -19,6 +23,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -28,11 +34,17 @@ public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static String TAG = "SignInActivity";
+    private FirebaseDatabase database;
+    private DatabaseReference mUserRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        //Initiallizing the user ref for firebase database
+
+//        mUserRef = new Firebase("https://dairysupply-21c78.firebaseio.com/Users/");
 
         //Getting instance for firebase Authentication
         mAuth = FirebaseAuth.getInstance();
@@ -97,6 +109,22 @@ public class SignInActivity extends AppCompatActivity {
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
+
+                //Storing user data into database
+                String email = emailId(account.getEmail());
+
+                //Using Shared Preferences to store user email id as key to database.
+                SharedPreferences sharedPref = getSharedPreferences("Settings",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("KEY",email);
+                editor.commit();
+
+                //creating new object for the user
+                database = FirebaseDatabase.getInstance();
+                mUserRef = database.getReference(email);
+                DatabaseReference childRef = mUserRef.child("Name");
+                childRef.setValue(account.getDisplayName());
+
                 firebaseAuthWithGoogle(account);
             } else {
                 // Google Sign In failed, update UI appropriately
@@ -134,6 +162,12 @@ public class SignInActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    public static String emailId(String mail){
+        String Delimiter = "@";
+        String[] strTemp = mail.split(Delimiter);
+        return strTemp[0];
     }
 
     @Override

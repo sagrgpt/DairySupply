@@ -1,6 +1,8 @@
 package com.example.sagar.dairysupply;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -15,6 +17,11 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import static com.example.sagar.dairysupply.R.id.fab;
 
@@ -29,12 +36,34 @@ public class OrderActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mToggle;
     private NavigationView leftNavDrawer;
+    private FirebaseDatabase database;
+    private DatabaseReference mUserRef;
+    private static String uName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
+        //Using sharedPrefernces to get the user key
+        SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        String key = sharedPreferences.getString("KEY",null);
+//        Toast.makeText(OrderActivity.this, key, Toast.LENGTH_SHORT).show();
+
+        //Accessing database to get username for navigation drawer
+        database = FirebaseDatabase.getInstance();
+        mUserRef = database.getReference(key);
+        mUserRef.child("Name").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                uName = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         mToolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(mToolbar);
@@ -44,6 +73,12 @@ public class OrderActivity extends AppCompatActivity {
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         leftNavDrawer =(NavigationView) findViewById(R.id.leftNavDrawer);
+
+        //Accessing the navigation view header
+        View hView = leftNavDrawer.getHeaderView(0);
+        TextView username =(TextView) hView.findViewById(R.id.nav_userName);
+        username.setText(uName);
+
         leftNavDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

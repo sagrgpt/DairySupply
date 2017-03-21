@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <item android:id="@+id/nav_account"
         android:icon="@drawable/ic_my_account"
         android:title="My Acccount"/>
+
+    <item android:id="@+id/nav_make_order"
+        android:icon="@drawable/ic_make_order"
+        android:title="Make Order"/>
+
+    <item android:id="@+id/nav_my_order"
+        android:icon="@drawable/ic_my_order"
+        android:title="My Orders"/>
 
     <item android:id="@+id/nav_setting"
         android:icon="@drawable/ic_settings"
         android:title="Settings"/>
 
-    <item android:id="@+id/nav_order"
-        android:icon="@drawable/ic_make_order"
-        android:title="Make Order"/>
+    <item android:id="@+id/nav_about"
+        android:icon="@drawable/ic_info"
+        android:title="About"/>
+
 
 </menu>

@@ -2,9 +2,7 @@ package com.example.sagar.dairysupply;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -24,27 +22,25 @@ public class Navigation4navDrawer {
                 return i;
 
             }
-            case R.id.nav_order:{
+            case R.id.nav_make_order:{
                 i = new Intent(context,OrderActivity.class);
                 return i;
             }
 
-//            case R.id.nav_logout: {
-//                mAuth = FirebaseAuth.getInstance();
-//                mAuthListener = new FirebaseAuth.AuthStateListener() {
-//                    @Override
-//                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                        if (firebaseAuth.getCurrentUser()==null){
-//                            i =new Intent(context,SignInActivity.class);
-//                        }
-//                        else
-//                            Toast.makeText(context,"Connection error",Toast.LENGTH_SHORT).show();
-//                    }
-//                };
-//                mAuth.signOut();
-//                return i;
-//            }
+            case R.id.nav_my_order:{
+                i = new Intent(context,OrderActivity.class);
+                return i;
+            }
+            case R.id.nav_about:{
+                i = new Intent(context,OrderActivity.class);
+                return i;
+            }
+            case R.id.nav_setting:{
+                i = new Intent(context,OrderActivity.class);
+                return i;
+            }
         }
+        //This is a dead code as it is never executed.
         return (new Intent(context,BrandActivity.class));
     }
 

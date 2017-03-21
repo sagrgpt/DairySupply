@@ -16,6 +16,7 @@
         app:civ_border_color="#FF000000"/>
 
     <TextView
+        android:id="@+id/nav_userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_image"
