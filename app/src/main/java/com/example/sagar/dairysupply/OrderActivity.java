@@ -1,5 +1,6 @@
 package com.example.sagar.dairysupply;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,7 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +37,7 @@ public class OrderActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mToggle;
     private NavigationView leftNavDrawer;
-    private FirebaseDatabase database;
+    private DatabaseReference mDatabase;
     private DatabaseReference mUserRef;
     private static String uName;
 
@@ -45,25 +46,12 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        //Using sharedPrefernces to get the user key
-        SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
-        String key = sharedPreferences.getString("KEY",null);
-//        Toast.makeText(OrderActivity.this, key, Toast.LENGTH_SHORT).show();
-
-        //Accessing database to get username for navigation drawer
-        database = FirebaseDatabase.getInstance();
-        mUserRef = database.getReference(key);
-        mUserRef.child("Name").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                uName = dataSnapshot.getValue(String.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        //Initiating progress dialog display
+        final ProgressDialog progressDialog = new ProgressDialog(OrderActivity.this);
+        progressDialog.setTitle("Loading");
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Please Wait");
+        progressDialog.show();
 
         mToolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(mToolbar);
@@ -74,10 +62,42 @@ public class OrderActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         leftNavDrawer =(NavigationView) findViewById(R.id.leftNavDrawer);
 
-        //Accessing the navigation view header
-        View hView = leftNavDrawer.getHeaderView(0);
-        TextView username =(TextView) hView.findViewById(R.id.nav_userName);
-        username.setText(uName);
+        //Using sharedPreferences to get the user key
+        SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        String key = sharedPreferences.getString("KEY",null);
+
+        //Accessing database to get username for navigation drawer
+        mDatabase = FirebaseDatabase.getInstance().getReference("UserTable");
+        mUserRef = mDatabase.child(key).child("Name");
+        mUserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                uName = dataSnapshot.getValue(String.class);
+                //Accessing the navigation view header
+                View hView = leftNavDrawer.getHeaderView(0);
+                TextView username =(TextView) hView.findViewById(R.id.nav_userName);
+                username.setText(uName);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        new Thread() {
+            public void run() {
+                try {
+                    sleep(3000);
+                    progressDialog.dismiss();
+                }
+                catch (Exception e) { }
+
+            }
+        }.start();
+
+
 
         leftNavDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -129,7 +149,7 @@ public class OrderActivity extends AppCompatActivity {
                 //checking if the user entry is valid before moving to the next activity.
                 Boolean isValid = validate(v);
                 if(isValid){
-                    Intent i = new Intent(OrderActivity.this,DeliveryInfo.class);
+                    Intent i = new Intent(OrderActivity.this,OrderDetails.class);
                     i.putExtra("Quantity",qty);
                     i.putExtra("Slot",slot);
                     startActivity(i);

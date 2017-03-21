@@ -30,7 +30,7 @@
         <activity
             android:name=".OrderDetails"
             android:theme="@style/AppThemeNoAppbar"/>
-        <activity android:name=".DeliveryInfo"/>
+        <activity android:name=".UserInfo"/>
         <activity android:name=".SignInActivity"/>
         <activity android:name=".MyAccount"/>
     </application>

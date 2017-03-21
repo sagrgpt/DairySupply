@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/custom_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <View
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/colorPrimary"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/default_user_profile"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/appbar"
+                android:layout_marginLeft="8dp"/>
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/profile_image"
+                android:text="username"
+                android:textAppearance="?android:textAppearanceLarge" />
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/header"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:padding="30dp">
+
+                    <ImageView
+                        android:id="@+id/phone_icon"
+                        android:src="@drawable/ic_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"/>
+
+                    <EditText
+                        android:id="@+id/contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_toEndOf="@+id/phone_icon"
+                        android:hint="Contact"
+                        android:textAppearance="?android:textAppearanceMedium"/>
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#616161"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="30dp">
+
+                    <ImageView
+                        android:id="@+id/location_icon"
+                        android:src="@drawable/ic_location_on"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"/>
+
+                    <EditText
+                        android:id="@+id/addr1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="60dp"
+                        android:layout_alignParentEnd="true"
+                        android:hint="House No/Street No"
+                        android:textAppearance="?android:textAppearanceMedium"/>
+
+                    <EditText
+                        android:id="@+id/addr2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/addr1"
+                        android:layout_alignStart="@+id/addr1"
+                        android:layout_marginTop="10dp"
+                        android:textAppearance="?android:textAppearanceMedium"
+                        android:hint="Area Name"/>
+
+                    <EditText
+                        android:id="@+id/addr3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/addr2"
+                        android:layout_alignStart="@+id/addr2"
+                        android:layout_marginTop="10dp"
+                        android:textAppearance="?android:textAppearanceMedium"
+                        android:hint="City Name"/>
+
+                    <EditText
+                        android:id="@+id/zipcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/addr3"
+                        android:layout_alignStart="@+id/addr3"
+                        android:layout_marginTop="10dp"
+                        android:inputType="number"
+                        android:textAppearance="?android:textAppearanceMedium"
+                        android:hint="Zipcode"/>
+
+                    <EditText
+                        android:id="@+id/landmark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/zipcode"
+                        android:layout_alignStart="@+id/zipcode"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:textAppearance="?android:textAppearanceMedium"
+                        android:hint="Nearest Landmark"/>
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/submit_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:text="Proceed"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="#ffffff"
+                    android:onClick="onSaveData"/>
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+
+
+    </ScrollView>
+
+</RelativeLayout>

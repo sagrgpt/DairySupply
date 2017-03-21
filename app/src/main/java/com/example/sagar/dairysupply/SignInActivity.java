@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
-
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -34,17 +32,14 @@ public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static String TAG = "SignInActivity";
-    private FirebaseDatabase database;
+    private static Boolean isNewUser;
+    private DatabaseReference database;
     private DatabaseReference mUserRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
-        //Initiallizing the user ref for firebase database
-
-//        mUserRef = new Firebase("https://dairysupply-21c78.firebaseio.com/Users/");
 
         //Getting instance for firebase Authentication
         mAuth = FirebaseAuth.getInstance();
@@ -83,8 +78,14 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser() != null){
-                    Intent i = new Intent(SignInActivity.this,OrderActivity.class);
-                    startActivity(i);
+                    if(!isNewUser) {
+                        Intent i = new Intent(SignInActivity.this, OrderActivity.class);
+                        startActivity(i);
+                    }
+                    else if(isNewUser){
+                        Intent i = new Intent(SignInActivity.this,UserInfo.class);
+                        startActivity(i);
+                    }
                 }
                 else{
 
@@ -113,15 +114,18 @@ public class SignInActivity extends AppCompatActivity {
                 //Storing user data into database
                 String email = emailId(account.getEmail());
 
-                //Using Shared Preferences to store user email id as key to database.
+                //Using Shared Preferences to store user email id as key to database
+                // and also to mark the users first time use of the application
                 SharedPreferences sharedPref = getSharedPreferences("Settings",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("KEY",email);
-                editor.commit();
+                editor.apply();
+                isNewUser = sharedPref.getBoolean("NewUser",true);
 
                 //creating new object for the user
-                database = FirebaseDatabase.getInstance();
-                mUserRef = database.getReference(email);
+                database = FirebaseDatabase.getInstance().getReference("UserTable");
+                mUserRef = database.child(email);
+                mUserRef.child("Name").setValue(account.getDisplayName());
                 DatabaseReference childRef = mUserRef.child("Name");
                 childRef.setValue(account.getDisplayName());
 

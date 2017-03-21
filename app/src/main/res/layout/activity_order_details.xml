@@ -113,4 +113,15 @@
         android:textAppearance="?android:textAppearanceLarge"
         android:layout_alignBaseline="@+id/costTextView"
         android:layout_toRightOf="@+id/costTextView"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:text="Confirm Order!!"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColorLink="@color/colorPrimary"
+        android:textColor="#ffffff"
+        android:onClick="onConfirmOrder"/>
 </RelativeLayout>
