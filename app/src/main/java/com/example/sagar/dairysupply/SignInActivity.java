@@ -96,6 +96,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void signIn() {
+
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -119,6 +120,7 @@ public class SignInActivity extends AppCompatActivity {
                 SharedPreferences sharedPref = getSharedPreferences("Settings",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("KEY",email);
+                editor.putString("NAME",account.getDisplayName());
                 editor.apply();
                 isNewUser = sharedPref.getBoolean("NewUser",true);
 
