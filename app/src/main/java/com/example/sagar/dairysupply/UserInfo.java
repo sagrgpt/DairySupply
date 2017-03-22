@@ -1,5 +1,6 @@
 package com.example.sagar.dairysupply;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +34,31 @@ public class UserInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+
+        //Initiating progress dialog display
+        final ProgressDialog progressDialog = new ProgressDialog(UserInfo.this);
+        progressDialog.setTitle("Loading");
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Please Wait");
+        progressDialog.show();
+
+        new Thread() {
+            public void run() {
+                try {
+                    sleep(3000);
+                    progressDialog.dismiss();
+                }
+                catch (Exception e) { }
+
+            }
+        }.start();
+
+        //Hiding keyboard
+        View view = getCurrentFocus();
+        if(view!=null){
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).
+                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
 
         //Getting user key
         SharedPreferences sharedPreferences = getSharedPreferences("Settings",Context.MODE_PRIVATE);

@@ -69,11 +69,14 @@
 
                     <EditText
                         android:id="@+id/contact"
+                        android:inputType="number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
                         android:layout_toEndOf="@+id/phone_icon"
                         android:hint="Contact"
+                        android:nextFocusDown="@+id/addr1"
+                        android:maxLines="1"
                         android:textAppearance="?android:textAppearanceMedium"/>
 
                 </RelativeLayout>
@@ -95,15 +98,19 @@
 
                     <EditText
                         android:id="@+id/addr1"
+                        android:inputType="textCapCharacters"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="60dp"
                         android:layout_alignParentEnd="true"
                         android:hint="House No/Street No"
+                        android:maxLines="1"
                         android:textAppearance="?android:textAppearanceMedium"/>
 
                     <EditText
                         android:id="@+id/addr2"
+                        android:maxLines="1"
+                        android:inputType="textCapCharacters"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/addr1"
@@ -114,6 +121,8 @@
 
                     <EditText
                         android:id="@+id/addr3"
+                        android:maxLines="1"
+                        android:inputType="textCapCharacters"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/addr2"
@@ -124,6 +133,7 @@
 
                     <EditText
                         android:id="@+id/zipcode"
+                        android:maxLines="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/addr3"
@@ -135,6 +145,8 @@
 
                     <EditText
                         android:id="@+id/landmark"
+                        android:maxLines="1"
+                        android:inputType="textCapCharacters"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/zipcode"

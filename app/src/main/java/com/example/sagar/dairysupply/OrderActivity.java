@@ -45,14 +45,15 @@ public class OrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+//
+//        //Initiating progress dialog display
+//        final ProgressDialog progressDialog = new ProgressDialog(OrderActivity.this);
+//        progressDialog.setTitle("Loading");
+//        progressDialog.setCancelable(false);
+//        progressDialog.setMessage("Please Wait");
+//        progressDialog.show();
 
-        //Initiating progress dialog display
-        final ProgressDialog progressDialog = new ProgressDialog(OrderActivity.this);
-        progressDialog.setTitle("Loading");
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Please Wait");
-        progressDialog.show();
-
+        //Toolbar and navigation drawer
         mToolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(mToolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -63,7 +64,7 @@ public class OrderActivity extends AppCompatActivity {
         leftNavDrawer =(NavigationView) findViewById(R.id.leftNavDrawer);
 
         //Using sharedPreferences to get the user key
-        SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        final SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         String key = sharedPreferences.getString("KEY",null);
 
         //Accessing database to get username for navigation drawer
@@ -73,10 +74,15 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 uName = dataSnapshot.getValue(String.class);
-                //Accessing the navigation view header
-                View hView = leftNavDrawer.getHeaderView(0);
-                TextView username =(TextView) hView.findViewById(R.id.nav_userName);
-                username.setText(uName);
+                if(uName!=null) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("NAME", uName);
+                    editor.apply();
+                    //Accessing the navigation view header
+                    View hView = leftNavDrawer.getHeaderView(0);
+                    TextView username = (TextView) hView.findViewById(R.id.nav_userName);
+                    username.setText(uName);
+                }
             }
 
             @Override
@@ -86,16 +92,16 @@ public class OrderActivity extends AppCompatActivity {
         });
 
 
-        new Thread() {
-            public void run() {
-                try {
-                    sleep(3000);
-                    progressDialog.dismiss();
-                }
-                catch (Exception e) { }
-
-            }
-        }.start();
+//        new Thread() {
+//            public void run() {
+//                try {
+//                    sleep(3000);
+//                    progressDialog.dismiss();
+//                }
+//                catch (Exception e) { }
+//
+//            }
+//        }.start();
 
 
 
