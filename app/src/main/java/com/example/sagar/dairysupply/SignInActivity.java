@@ -79,7 +79,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser() != null){
                     if(!isNewUser) {
-                        Intent i = new Intent(SignInActivity.this, OrderActivity.class);
+                        Intent i = new Intent(SignInActivity.this, ProductActivity.class);
                         startActivity(i);
                     }
                     else if(isNewUser){

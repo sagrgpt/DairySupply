@@ -20,4 +20,9 @@
     <string name="action_settings">Settings</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="product3">Cake</string>
+    <string name="product2">Curd</string>
+    <string name="product1">Milk</string>
+    <string name="product4">Butter</string>
+    <string name="product5">Ice-cream</string>
 </resources>

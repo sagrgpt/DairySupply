@@ -23,20 +23,20 @@ public class Navigation4navDrawer {
 
             }
             case R.id.nav_make_order:{
-                i = new Intent(context,OrderActivity.class);
+                i = new Intent(context,ProductActivity.class);
                 return i;
             }
 
             case R.id.nav_my_order:{
-                i = new Intent(context,OrderActivity.class);
+                i = new Intent(context,ProductActivity.class);
                 return i;
             }
             case R.id.nav_about:{
-                i = new Intent(context,OrderActivity.class);
+                i = new Intent(context,ProductActivity.class);
                 return i;
             }
             case R.id.nav_setting:{
-                i = new Intent(context,OrderActivity.class);
+                i = new Intent(context,ProductActivity.class);
                 return i;
             }
         }

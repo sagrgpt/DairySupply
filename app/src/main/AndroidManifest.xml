@@ -19,20 +19,23 @@
         <activity
             android:name=".BrandActivity"
             android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".userCheckActivity" />
+        <activity android:name=".OrderActivity" />
+        <activity
+            android:name=".OrderDetails"
+            android:theme="@style/AppThemeNoAppbar" />
+        <activity android:name=".UserInfo" />
+        <activity android:name=".SignInActivity" />
+        <activity android:name=".MyAccount" />
+        <activity android:name=".ProductActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".userCheckActivity" />
-        <activity android:name=".OrderActivity" />
-        <activity
-            android:name=".OrderDetails"
-            android:theme="@style/AppThemeNoAppbar"/>
-        <activity android:name=".UserInfo"/>
-        <activity android:name=".SignInActivity"/>
-        <activity android:name=".MyAccount"/>
     </application>
 
 </manifest>

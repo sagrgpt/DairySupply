@@ -144,7 +144,7 @@ public class UserInfo extends AppCompatActivity {
             editor.putBoolean("NewUser",true);
             editor.apply();
 
-            startActivity(new Intent(UserInfo.this,OrderActivity.class));
+            startActivity(new Intent(UserInfo.this,ProductActivity.class));
 
         }
     }
