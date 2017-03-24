@@ -42,16 +42,6 @@ public class UserInfo extends AppCompatActivity {
         progressDialog.setMessage("Please Wait");
         progressDialog.show();
 
-        new Thread() {
-            public void run() {
-                try {
-                    sleep(3000);
-                    progressDialog.dismiss();
-                }
-                catch (Exception e) { }
-
-            }
-        }.start();
 
         //Hiding keyboard
         View view = getCurrentFocus();
@@ -88,6 +78,7 @@ public class UserInfo extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String name = dataSnapshot.getValue(String.class);
                 username.setText(name);
+                progressDialog.dismiss();
             }
 
             @Override
@@ -133,7 +124,6 @@ public class UserInfo extends AppCompatActivity {
 
             mDatabase = FirebaseDatabase.getInstance().getReference("UserTable");
             myRef = mDatabase.child(KEY);
-            Toast.makeText(UserInfo.this,KEY,Toast.LENGTH_SHORT).show();
             location = addr1.getText().toString()+", "+addr2.getText().toString()+", "+addr3.getText().toString()+", Near "+landmark.getText().toString();
             myRef.child("Contact").setValue(contact.getText().toString());
             myRef.child("Location").setValue(location);
@@ -141,7 +131,7 @@ public class UserInfo extends AppCompatActivity {
 
             sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("NewUser",true);
+            editor.putBoolean("NewUser",false);
             editor.apply();
 
             startActivity(new Intent(UserInfo.this,ProductActivity.class));

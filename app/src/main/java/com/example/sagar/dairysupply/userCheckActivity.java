@@ -32,7 +32,7 @@ public class userCheckActivity extends Activity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser()!=null){
-                    startActivity(new Intent(userCheckActivity.this,OrderActivity.class));
+                    startActivity(new Intent(userCheckActivity.this,ProductActivity.class));
                 }
                 else
                     startActivity(new Intent(userCheckActivity.this,SignInActivity.class));

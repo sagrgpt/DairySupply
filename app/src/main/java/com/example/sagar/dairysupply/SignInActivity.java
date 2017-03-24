@@ -1,4 +1,5 @@
 package com.example.sagar.dairysupply;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,11 +36,19 @@ public class SignInActivity extends AppCompatActivity {
     private static Boolean isNewUser;
     private DatabaseReference database;
     private DatabaseReference mUserRef;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        //Initiating progress dialog display
+        progressDialog = new ProgressDialog(SignInActivity.this);
+        progressDialog.setTitle("Signing In");
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Please Wait");
+
 
         //Getting instance for firebase Authentication
         mAuth = FirebaseAuth.getInstance();
@@ -80,10 +89,12 @@ public class SignInActivity extends AppCompatActivity {
                 if(firebaseAuth.getCurrentUser() != null){
                     if(!isNewUser) {
                         Intent i = new Intent(SignInActivity.this, ProductActivity.class);
+                        progressDialog.dismiss();
                         startActivity(i);
                     }
                     else if(isNewUser){
                         Intent i = new Intent(SignInActivity.this,UserInfo.class);
+                        progressDialog.dismiss();
                         startActivity(i);
                     }
                 }
@@ -96,7 +107,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void signIn() {
-
+        progressDialog.show();
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -121,6 +132,8 @@ public class SignInActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("KEY",email);
                 editor.putString("NAME",account.getDisplayName());
+                editor.putString("IMAGE_URL",account.getPhotoUrl().toString());
+                Toast.makeText(SignInActivity.this,account.getPhotoUrl().toString(),Toast.LENGTH_SHORT).show();
                 editor.apply();
                 isNewUser = sharedPref.getBoolean("NewUser",true);
 
@@ -135,6 +148,7 @@ public class SignInActivity extends AppCompatActivity {
             } else {
                 // Google Sign In failed, update UI appropriately
                 // ...
+                progressDialog.dismiss();
                 Toast.makeText(SignInActivity.this,"SignIn declined from Google",Toast.LENGTH_SHORT).show();
 
             }

@@ -1,8 +1,20 @@
 <resources>
-    <string name="app_name">DairySupply</string>
+    <string name="app_name">Morning Dairy</string>
     <string name="appTagline">Product TagLines</string>
     <string name="title_activity_login">Sign in</string>
-    <string name="Address">House No, Area Name, Landmark, City,</string>
+    <string-array name="quantity">
+        <item>Quantity in Litres</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
     <string-array name="navOptions">
         <item>item1</item>
         <item>item2</item>
@@ -25,4 +37,6 @@
     <string name="product1">Milk</string>
     <string name="product4">Butter</string>
     <string name="product5">Ice-cream</string>
+    <string name="timing_note">Currently the delivery timing is limited to only 3-4 hours after the order is placed depending on your location. You will recieve a call 30 min prior to our delivery attempt</string>
+    <string name="quantity_note">Quantity in Litres</string>
 </resources>

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -21,7 +22,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyAccount extends AppCompatActivity {
 
@@ -41,6 +46,10 @@ public class MyAccount extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mToggle;
     private NavigationView leftNavDrawer;
+    //Profile image
+    private CircleImageView mIvProfileImage;
+
+
 
     @Override
     protected void onStart() {
@@ -56,6 +65,7 @@ public class MyAccount extends AppCompatActivity {
         //Getting user key and username
         SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         KEY = sharedPreferences.getString("KEY", null);
+        String image_url = sharedPreferences.getString("IMAGE_URL",null);
         String uName = sharedPreferences.getString("NAME",null);
 
         //Toolbar and navigation drawer
@@ -70,6 +80,11 @@ public class MyAccount extends AppCompatActivity {
         leftNavDrawer = (NavigationView) findViewById(R.id.leftNavDrawer);
         //Accessing the navigation view header
         View hView = leftNavDrawer.getHeaderView(0);
+        mIvProfileImage = (CircleImageView) hView.findViewById(R.id.profile_image);
+        Picasso.with(getApplicationContext()).load(image_url)//download URL
+                .placeholder(R.drawable.default_user_profile)//use default image
+                .error(R.drawable.default_user_profile)//if failed
+                .into(mIvProfileImage);
         TextView nav_username = (TextView) hView.findViewById(R.id.nav_userName);
         nav_username.setText(uName);
         leftNavDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -88,11 +103,20 @@ public class MyAccount extends AppCompatActivity {
         progressDialog.setMessage("Please Wait");
         progressDialog.show();
 
+        //Profile image
+        mIvProfileImage = (CircleImageView) findViewById(R.id.profile_image);
+        Picasso.with(getApplicationContext()).load(image_url)//download URL
+                .placeholder(R.drawable.default_user_profile)//use defaul image
+                .error(R.drawable.default_user_profile)//if failed
+                .into(mIvProfileImage);
+
         //Referencing layout variables
         contact = (TextView) findViewById(R.id.contact);
         address = (TextView) findViewById(R.id.address);
         zipcode = (TextView) findViewById(R.id.zipcode);
         username = (TextView) findViewById(R.id.username);
+        //Changing font for username
+        username.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/IndieFlower.ttf"));
 
         //Connecting to userTable
         mDatabase = FirebaseDatabase.getInstance().getReference("UserTable");

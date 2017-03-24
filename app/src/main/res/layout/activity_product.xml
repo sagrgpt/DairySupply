@@ -19,7 +19,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/appbar">
+            android:layout_below="@+id/appbar"
+            android:background="#525A6A">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -39,7 +40,7 @@
                     android:layout_height="150dp"
                     android:padding="40dp"
                     android:src="@drawable/ic_product1"
-                    android:background="#03A9F4"/>
+                    android:background="#089CDE"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -51,7 +52,7 @@
                 <ImageView
                     android:id="@+id/product2"
                     android:layout_width="0dp"
-                    android:layout_height="170dp"
+                    android:layout_height="150dp"
                     android:layout_below="@+id/product1"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="4.5dp"
@@ -59,7 +60,7 @@
                     android:layout_alignEnd="@+id/marginView"
                     android:src="@drawable/ic_product_2"
                     android:padding="50dp"
-                    android:background="#00BCD4" />
+                    android:background="#F67310" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -72,7 +73,7 @@
                 <ImageView
                     android:id="@+id/product3"
                     android:layout_width="0dp"
-                    android:layout_height="170dp"
+                    android:layout_height="150dp"
                     android:layout_below="@+id/product1"
                     android:layout_alignParentEnd="true"
                     android:layout_alignStart="@+id/marginView"
@@ -80,7 +81,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="4.5dp"
                     android:src="@drawable/ic_product_3"
-                    android:background="@color/colorAccent"/>
+                    android:background="#DE4A31"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -94,7 +95,7 @@
                 <ImageView
                     android:id="@+id/product4"
                     android:layout_width="0dp"
-                    android:layout_height="170dp"
+                    android:layout_height="150dp"
                     android:layout_below="@+id/product2"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="4.5dp"
@@ -116,7 +117,7 @@
                 <ImageView
                     android:id="@+id/product5"
                     android:layout_width="0dp"
-                    android:layout_height="170dp"
+                    android:layout_height="150dp"
                     android:layout_below="@+id/product3"
                     android:layout_alignParentEnd="true"
                     android:layout_alignStart="@+id/marginView"
@@ -124,7 +125,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="4.5dp"
                     android:src="@drawable/ic_product_5"
-                    android:background="#7E57C2"/>
+                    android:background="#AC9CCD"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -145,6 +146,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="#394A5A"
         app:menu="@menu/nav_menu"
         app:headerLayout="@layout/nav_header"/>
 

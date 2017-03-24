@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#394A5A">
 
     <include layout="@layout/custom_appbar"
         android:layout_width="match_parent"
@@ -11,7 +12,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/colorPrimary">
+        android:background="#293141">
 
     </View>
 
@@ -32,10 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
-        android:layout_alignStart="@+id/profile_image"
-        android:layout_margin="5dp"
-        android:layout_below="@+id/profile_image"
-        android:text="Mr. Xyz"
+        android:layout_marginTop="48dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/profile_image"
+        android:layout_below="@+id/appbar"
         android:textAppearance="?android:textAppearanceLarge"
         android:id="@+id/username" />
 
@@ -52,7 +53,8 @@
             android:id="@+id/quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3"
+            android:textColor="@color/textColor"
+
             android:textAppearance="?android:textAppearanceMedium"/>
 
         <TextView
@@ -60,13 +62,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:text="Ltrs"
+            android:textColor="@color/textColor"
             android:textAppearance="?android:textAppearanceMedium"/>
     </LinearLayout>
 
 
     <TextView
         android:id="@+id/address"
-        android:text="@string/Address"
+        android:textColor="@color/textColor"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/quantityContainer"
@@ -81,14 +84,15 @@
         android:layout_marginTop="8dp"
         android:layout_below="@+id/address"
         android:layout_alignStart="@+id/address"
-        android:text="8939155521"
+        android:textColor="@color/textColor"
+
         android:textAppearance="?android:textAppearanceMedium"/>
 
     <TextView
         android:id="@+id/timingSlot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delivery Timing: Morning"
+        android:textColor="@color/textColor"
         android:layout_below="@+id/phone_number"
         android:layout_alignStart="@+id/phone_number"
         android:textAppearance="?android:textAppearanceMedium"
@@ -99,6 +103,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Rs"
+        android:textColor="@color/textColor"
+
         android:textAppearance="?android:textAppearanceLarge"
         android:layout_below="@+id/timingSlot"
         android:layout_alignStart="@+id/timingSlot"
@@ -108,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cost"
-        android:text="50"
+        android:textColor="@color/colorAccent"
         android:layout_marginStart="5dp"
         android:textAppearance="?android:textAppearanceLarge"
         android:layout_alignBaseline="@+id/costTextView"
@@ -118,7 +124,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorAccent"
         android:text="Confirm Order!!"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColorLink="@color/colorPrimary"

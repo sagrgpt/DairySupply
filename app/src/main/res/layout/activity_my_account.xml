@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:background="#394A5A"
     android:id="@+id/drawerLayout">
 
     <LinearLayout
@@ -23,7 +25,7 @@
 
 
     <LinearLayout android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context="com.example.sagar.dairysupply.MyAccount"
         android:orientation="vertical">
 
@@ -31,7 +33,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="170dp"
-            android:background="@drawable/background_nav_drawer">
+            android:background="#293141">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -49,9 +51,9 @@
                 android:text="Username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:textAppearanceLarge"
-                android:textColor="#FFFFFF"
-                android:layout_marginBottom="10dp"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/colorAccent"
+                android:layout_marginBottom="2dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"/>
 
@@ -81,6 +83,7 @@
                     android:layout_marginStart="50dp"
                     android:layout_toEndOf="@+id/phone_icon"
                     android:hint="Contact"
+                    android:textColor="@color/textColor"
                     android:textAppearance="?android:textAppearanceMedium"/>
 
             </RelativeLayout>
@@ -88,7 +91,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#616161"/>
+                android:background="@color/colorPrimaryDark"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -109,6 +112,7 @@
                     android:layout_marginStart="50dp"
                     android:layout_toEndOf="@+id/addressIcon"
                     android:hint="Address"
+                    android:textColor="@color/textColor"
                     android:textAppearance="?android:textAppearanceMedium"/>
 
             </RelativeLayout>
@@ -116,7 +120,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#616161"/>
+                android:background="@color/colorPrimaryDark"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -137,6 +141,7 @@
                     android:layout_marginStart="50dp"
                     android:layout_toEndOf="@+id/zipcodeIcon"
                     android:hint="Zipcode"
+                    android:textColor="@color/textColor"
                     android:textAppearance="?android:textAppearanceMedium"/>
 
             </RelativeLayout>
@@ -144,7 +149,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#616161"/>
+                android:background="@color/colorPrimaryDark"/>
 
             <RelativeLayout
                 android:layout_marginTop="10dp"
@@ -155,7 +160,7 @@
                     android:text="Logout"
                     android:layout_centerHorizontal="true"
                     android:textColor="#FFFFFF"
-                    android:background="#F44336"
+                    android:background="@color/colorAccent"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:onClick="onLogout"/>
@@ -172,6 +177,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="#394A5A"
         app:menu="@menu/nav_menu"
         app:headerLayout="@layout/nav_header"/>
 </android.support.v4.widget.DrawerLayout>

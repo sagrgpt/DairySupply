@@ -15,6 +15,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ProductActivity extends AppCompatActivity {
 
     //Toolbar and navigation drawer
@@ -33,11 +37,12 @@ public class ProductActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
 //        KEY = sharedPreferences.getString("KEY", null);
         String uName = sharedPreferences.getString("NAME",null);
+        String image_url = sharedPreferences.getString("IMAGE_URL",null);
 
         //Toolbar and navigation drawer
         mToolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(mToolbar);
-        setTitle("Products");
+        setTitle("Our Products");
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(mToggle);
@@ -46,6 +51,14 @@ public class ProductActivity extends AppCompatActivity {
         leftNavDrawer = (NavigationView) findViewById(R.id.leftNavDrawer);
         //Accessing the navigation view header
         View hView = leftNavDrawer.getHeaderView(0);
+        //Profile image
+        CircleImageView mIvProfileImage;
+        mIvProfileImage = (CircleImageView) hView.findViewById(R.id.profile_image);
+        Picasso.with(getApplicationContext()).load(image_url)//download URL
+                .placeholder(R.drawable.default_user_profile)//use default image
+                .error(R.drawable.default_user_profile)//if failed
+                .into(mIvProfileImage);
+        //Username
         TextView nav_username = (TextView) hView.findViewById(R.id.nav_userName);
         nav_username.setText(uName);
         leftNavDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -61,7 +74,10 @@ public class ProductActivity extends AppCompatActivity {
         product1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProductActivity.this,OrderActivity.class));
+                Intent i = new Intent(ProductActivity.this,OrderActivity.class);
+                String product ="1";
+                i.putExtra("ProductID",product);
+                startActivity(i);
             }
         });
 
