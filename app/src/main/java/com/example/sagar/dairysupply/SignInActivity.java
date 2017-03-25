@@ -133,7 +133,6 @@ public class SignInActivity extends AppCompatActivity {
                 editor.putString("KEY",email);
                 editor.putString("NAME",account.getDisplayName());
                 editor.putString("IMAGE_URL",account.getPhotoUrl().toString());
-                Toast.makeText(SignInActivity.this,account.getPhotoUrl().toString(),Toast.LENGTH_SHORT).show();
                 editor.apply();
                 isNewUser = sharedPref.getBoolean("NewUser",true);
 

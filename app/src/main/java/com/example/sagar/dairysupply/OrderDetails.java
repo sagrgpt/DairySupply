@@ -2,14 +2,17 @@ package com.example.sagar.dairysupply;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
@@ -71,7 +75,7 @@ public class OrderDetails extends AppCompatActivity {
         productid = data.getString("ProductID");
         quantityS = data.getString("Quantity");
         quantity.setText(quantityS);
-        slot.setText("Delivery within 2-3 hrs of order placement!!");
+        slot.setText(R.string.timing_note);
         qty = Integer.parseInt(quantity.getText().toString());
         price=data.getDouble("Cost");
         totalCost = qty*price;
@@ -105,20 +109,75 @@ public class OrderDetails extends AppCompatActivity {
             }
         });
 
+        Button onConfirmOrder = (Button) findViewById(R.id.onConfirmOrder);
+        onConfirmOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //getting reference to the UserTable of the database
+                mDatabase = FirebaseDatabase.getInstance().getReference("OrderTable");
+                myRef = mDatabase.child(KEY);
+                myRef.child("Name").setValue(nameS);
+                myRef.child("ProductID").setValue(productid);
+                myRef.child("Quantity").setValue(quantityS);
+                myRef.child("Price").setValue(totalCost);
+                Calendar calendar = Calendar.getInstance();
+                myRef.child("Timing").setValue(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE));
+
+//        startActivity(new Intent(OrderDetails.this,ProductActivity.class));
+
+                //Alert dialog as confirmation to order placed
+                AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetails.this);
+                builder.setTitle("Confirmation")
+                        .setMessage("Your order has been confir")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                startActivity(new Intent(OrderDetails.this,ProductActivity.class));
+
+                            }
+                        });
+                        builder.show();
+            }
+        });
+
     }
 
 
-    public void onConfirmOrder(View view) {
-
-        //getting reference to the UserTable of the database
-        mDatabase = FirebaseDatabase.getInstance().getReference("OrderTable");
-        myRef = mDatabase.child(KEY);
-        myRef.child("Name").setValue(nameS);
-        myRef.child("ProductID").setValue(productid);
-        myRef.child("Quantity").setValue(quantityS);
-        myRef.child("Price").setValue(totalCost);
-        myRef.child("Timing").setValue(new Date().getTime());
-
-        startActivity(new Intent(OrderDetails.this,ProductActivity.class));
-    }
+//    public void onConfirmOrder(View view) {
+//
+//        //getting reference to the UserTable of the database
+//        mDatabase = FirebaseDatabase.getInstance().getReference("OrderTable");
+//        myRef = mDatabase.child(KEY);
+//        myRef.child("Name").setValue(nameS);
+//        myRef.child("ProductID").setValue(productid);
+//        myRef.child("Quantity").setValue(quantityS);
+//        myRef.child("Price").setValue(totalCost);
+//        Calendar calendar = Calendar.getInstance();
+//        myRef.child("Timing").setValue(calendar.get(Calendar.HOUR_OF_DAY));
+//
+////        startActivity(new Intent(OrderDetails.this,ProductActivity.class));
+//
+//        //Alert dialog as confirmation to order placed
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+//        builder.setTitle("Confirmation")
+//                .setMessage("Your order has been confir")
+//                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                        startActivity(new Intent(OrderDetails.this,ProductActivity.class));
+//
+//                    }
+//                })
+//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
 }

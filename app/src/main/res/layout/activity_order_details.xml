@@ -121,6 +121,7 @@
         android:layout_toRightOf="@+id/costTextView"/>
 
     <Button
+        android:id="@+id/onConfirmOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -128,6 +129,5 @@
         android:text="Confirm Order!!"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColorLink="@color/colorPrimary"
-        android:textColor="#ffffff"
-        android:onClick="onConfirmOrder"/>
+        android:textColor="#ffffff"/>
 </RelativeLayout>

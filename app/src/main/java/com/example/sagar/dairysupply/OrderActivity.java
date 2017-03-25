@@ -24,6 +24,7 @@ import static com.example.sagar.dairysupply.R.id.fab;
 
 public class OrderActivity extends AppCompatActivity {
 
+    private Toolbar mToolbar;
     Spinner quantity;
     FloatingActionButton done;
     TextView description;
@@ -34,17 +35,16 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-
-        //Toolbar
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.appbar);
+        //Adding toolbar to the layout
+        mToolbar =(Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(mToolbar);
-        setTitle("Order");
+        setTitle("Your Order!");
 
         //Getting info from previous activity
         final Bundle data = getIntent().getExtras();
-//        Toast.makeText(OrderActivity.this,,Toast.LENGTH_SHORT).show();
         String productId = data.getString("ProductID");
         description = (TextView) findViewById(R.id.productDescription);
+
         //Connecting to database for productInfo
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("ProductTable");
         final DatabaseReference productRef = mDatabase.child(productId);

@@ -16,6 +16,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,14 +56,14 @@ public class MyAccount extends AppCompatActivity {
     private NavigationView leftNavDrawer;
     //Profile image
     private CircleImageView mIvProfileImage;
+    private GoogleApiClient mGoogleApiClient;
 
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthStateListener);
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        mAuth.addAuthStateListener(mAuthStateListener);
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +71,7 @@ public class MyAccount extends AppCompatActivity {
         setContentView(R.layout.activity_my_account);
 
         //Getting user key and username
-        SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         KEY = sharedPreferences.getString("KEY", null);
         String image_url = sharedPreferences.getString("IMAGE_URL",null);
         String uName = sharedPreferences.getString("NAME",null);
@@ -94,6 +102,24 @@ public class MyAccount extends AppCompatActivity {
                 return false;
             }
         });
+
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        //Building a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
+        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        Toast.makeText(MyAccount.this,"Connection Failed!!",Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                .build();
 
 
         //Initiating progress dialog display
@@ -142,23 +168,32 @@ public class MyAccount extends AppCompatActivity {
             }
         });
 
-
-        //User Session changes
+//
+//        //User Session changes
         mAuth = FirebaseAuth.getInstance();
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() == null) {
-                    startActivity(new Intent(MyAccount.this, SignInActivity.class));
-                }
-            }
-        };
+//        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                if (firebaseAuth.getCurrentUser() == null) {
+////                    startActivity(new Intent(MyAccount.this, SignInActivity.class));
+//                }
+//            }
+//        };
 
     }
 
 
     public void onLogout(View view) {
+        //Firebase SignOut
         mAuth.signOut();
+        // Google sign out
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(@NonNull Status status) {
+                startActivity(new Intent(MyAccount.this, userCheckActivity.class));
+            }
+        });
+//        FirebaseAuth.getInstance().signOut();
     }
 
 

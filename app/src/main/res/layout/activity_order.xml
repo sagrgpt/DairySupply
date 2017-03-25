@@ -7,20 +7,18 @@
         android:layout_height="match_parent">
 
         <include layout="@layout/custom_appbar"
-            android:id="@+id/appbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <RelativeLayout
             android:id="@+id/header"
-            android:layout_below="@id/appbar_layout"
+            android:layout_marginTop="?android:actionBarSize"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@color/colorPrimaryDark">
 
             <ImageView
                 android:id="@+id/productIcon"
-                android:layout_below="@+id/appbar"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon"
