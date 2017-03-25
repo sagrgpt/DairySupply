@@ -14,14 +14,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Map;
 
 public class OrderDetails extends AppCompatActivity {
@@ -36,7 +38,7 @@ public class OrderDetails extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private DatabaseReference myRef;
     private String KEY;
-
+    private int orderNumber;
     //User data variables
     private String nameS, contactS, locationS, zipcodeS,quantityS, productid;
 
@@ -54,8 +56,10 @@ public class OrderDetails extends AppCompatActivity {
         progressDialog.show();
 
         //Getting user key
-        SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        final SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         KEY = sharedPreferences.getString("KEY",null);
+        orderNumber = sharedPreferences.getInt("ORDER_ID",0);
+
 
 //      Adding toolbar to the layout
         Toolbar mToolbar =(Toolbar) findViewById(R.id.appbar);
@@ -99,8 +103,6 @@ public class OrderDetails extends AppCompatActivity {
                 address.setText(locationS+" "+zipcodeS);
                 contact.setText(contactS);
                 progressDialog.dismiss();
-
-
             }
 
             @Override
@@ -114,22 +116,33 @@ public class OrderDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //Setting order number to store multiple order made by user
+                if(orderNumber==0){
+                    orderNumber=1;
+                }
                 //getting reference to the UserTable of the database
                 mDatabase = FirebaseDatabase.getInstance().getReference("OrderTable");
-                myRef = mDatabase.child(KEY);
+                myRef = mDatabase.child(KEY).child(String.valueOf(orderNumber));
                 myRef.child("Name").setValue(nameS);
                 myRef.child("ProductID").setValue(productid);
                 myRef.child("Quantity").setValue(quantityS);
                 myRef.child("Price").setValue(totalCost);
                 Calendar calendar = Calendar.getInstance();
-                myRef.child("Timing").setValue(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE));
-
-//        startActivity(new Intent(OrderDetails.this,ProductActivity.class));
+//                calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)
+                SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm:ss");
+                String time = sdf.format(calendar.getTime());
+                myRef.child("Timing").setValue(time);
+                myRef.child("Status").setValue("Placed");
+                //Modifying the next order number
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                //TODO change 0 to ++orderNumber below
+                editor.putInt("ORDER_ID",0);
+                editor.apply();
 
                 //Alert dialog as confirmation to order placed
                 AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetails.this);
                 builder.setTitle("Confirmation")
-                        .setMessage("Your order has been confir")
+                        .setMessage("Your order has been confirmed")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -143,41 +156,4 @@ public class OrderDetails extends AppCompatActivity {
         });
 
     }
-
-
-//    public void onConfirmOrder(View view) {
-//
-//        //getting reference to the UserTable of the database
-//        mDatabase = FirebaseDatabase.getInstance().getReference("OrderTable");
-//        myRef = mDatabase.child(KEY);
-//        myRef.child("Name").setValue(nameS);
-//        myRef.child("ProductID").setValue(productid);
-//        myRef.child("Quantity").setValue(quantityS);
-//        myRef.child("Price").setValue(totalCost);
-//        Calendar calendar = Calendar.getInstance();
-//        myRef.child("Timing").setValue(calendar.get(Calendar.HOUR_OF_DAY));
-//
-////        startActivity(new Intent(OrderDetails.this,ProductActivity.class));
-//
-//        //Alert dialog as confirmation to order placed
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-//        builder.setTitle("Confirmation")
-//                .setMessage("Your order has been confir")
-//                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                        startActivity(new Intent(OrderDetails.this,ProductActivity.class));
-//
-//                    }
-//                })
-//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//    }
 }
